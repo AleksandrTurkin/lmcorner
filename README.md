@@ -1,0 +1,2 @@
+# lmcorner
+Blog lmcorner.net
