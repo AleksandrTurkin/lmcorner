@@ -1,0 +1,23 @@
+baseURL = 'https://lmcorner.net/'
+theme = 'PaperMod'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false # Keeps English at the root (/)
+
+[languages]
+    [languages.en]
+        languageCode = 'en-us'
+        languageName = 'English'
+        contentDir = 'content/en'
+        weight = 1
+        title = 'The .NET + LM Sandbox'
+
+    [languages.ru]
+        languageCode = 'ru-ru'
+        languageName = 'Русский'
+        contentDir = 'content/ru'
+        weight = 2
+        title = '.NET + Нейросети: Песочница'
+
+[params]
+    # This tells PaperMod to show the language switcher
+    displayFullLangName = true
