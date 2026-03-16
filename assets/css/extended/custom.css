@@ -3,3 +3,25 @@
     margin-bottom: 50px;
     min-height: 180px;
 }
+
+.post-tags a {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-right: 10px;
+
+    text-transform: lowercase;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+.post-tags a:hover {
+    background: none !important;
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.post-tags a::before {
+    content: "#";
+}

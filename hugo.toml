@@ -16,7 +16,7 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
 
         [languages.en.params.homeInfoParams]
             Title = "Hello there ✌️"
-            Content = "Hey there! Welcome to the Sandbox. <br> This is where we bridge the gap between .NET and the world of AI (LLMs, SLMs, and beyond). Expect practical C# guides, raw experiments, and a bit of everything else. <br> Glad to have you here!"
+            Content = "Welcome to the Sandbox. <br> This is where we bridge the gap between .NET and the world of AI (LLMs, SLMs, and beyond). Expect practical C# guides, raw experiments, and a bit of everything else. <br> Glad to have you here!"
 
     [languages.ru]
         languageCode = 'ru-ru'
@@ -27,12 +27,18 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
                 
         [languages.ru.params.homeInfoParams]
             Title = "Всем привет ✌️"
-            Content = "Всем привет! Рад видеть вас в Песочнице. <br> Здесь мы колдуем с нейросетями (LLM, SLM и всё, что между ними) с помощью .NET, делимся кодом и пробуем нестандартные подходы. <br> Всем добра!"
+            Content = "Рад видеть вас в Песочнице. <br> Здесь мы колдуем с нейросетями (LLM, SLM и всё, что между ними) с помощью .NET, делимся кодом и пробуем нестандартные подходы. <br> Всем добра!"
 
 [params]
     # This tells PaperMod to show the language switcher
-    displayFullLangName = true
+    displayFullLangName = true    
+    labelTagName = "#"
 
     [[params.socialIcons]]
         name = "linkedin"
         url = "https://www.linkedin.com/in/aleksandr-turkin-20a60699/"
+
+    [[menu.main]]
+        name = "Tags"
+        url = "/tags"
+        weight = 20
