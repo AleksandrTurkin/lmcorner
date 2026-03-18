@@ -33,6 +33,8 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
     # This tells PaperMod to show the language switcher
     displayFullLangName = true    
     labelTagName = "#"
+    showBreadCrumbs = true
+    showReadingTime = true
 
     [[params.socialIcons]]
         name = "linkedin"
