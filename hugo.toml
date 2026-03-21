@@ -23,7 +23,7 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
         languageName = 'Русский'
         contentDir = 'content/ru'
         weight = 2
-        title = '.NET + Нейросети: Песочница'
+        title = '.NET + Нейросети Песочница'
                 
         [languages.ru.params.homeInfoParams]
             Title = "Всем привет ✌️"
