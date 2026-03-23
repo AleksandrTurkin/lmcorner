@@ -5,7 +5,7 @@ tags = ['other']
 author = ["Aleksandr T."]
 +++
 
-### Hello there! 👋
+### Hello there! 🖖
 My name is Aleksandr, and I am a software engineer.
 
 **Why this blog?** Well, LLMs changed everything. To be honest, they’ve blown me away.

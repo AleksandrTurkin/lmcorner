@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+  </header>
+  <div class="post-content">
+    {{ .Content }}
+    <dl>
+      {{ $langData := index .Site.Data .Language.Lang }}
+      {{ range $langData.glossary }}
+        <dt><strong>{{ .term }}</strong></dt>
+        <dd>{{ .definition }}</dd>
+        <hr>
+      {{ end }}
+    </dl>
+  </div>
+</article>
+{{ end }}

@@ -25,3 +25,17 @@
 .post-tags a::before {
     content: "#";
 }
+
+abbr[title], .post-content a[href*="glossary"] {
+    text-decoration: none !important;
+    border-bottom: 1.5px solid rgba(66, 133, 244, 0.3) !important;
+    cursor: help;
+    transition: all 0.2s ease-in-out;
+    padding-bottom: 1px;
+}
+
+abbr[title]:hover, .post-content a[href*="glossary"]:hover {
+    border-bottom: 1.5px solid rgba(66, 133, 244, 1) !important;
+    background-color: rgba(66, 133, 244, 0.05);
+    color: #2962ff;
+}

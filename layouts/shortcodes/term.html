@@ -1,0 +1,13 @@
+{{ $term := .Get 0 }}
+{{ $lang := .Page.Language.Lang }}
+{{ $data := index .Site.Data $lang }}
+{{ $found := false }}
+
+{{ range $data.glossary }}
+  {{ if eq .term $term }}
+    <abbr title="{{ .definition }}" style="cursor:help; border-bottom: 1px dotted;">{{ $term }}</abbr>
+    {{ $found = true }}
+  {{ end }}
+{{ end }}
+
+{{ if not $found }}<b style="color:red;">{{ $term }} (Not found)</b>{{ end }}
