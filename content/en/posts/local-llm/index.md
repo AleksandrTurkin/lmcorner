@@ -89,4 +89,4 @@ An interesting point: most of these are either built on top of [llama.cpp](https
 
 llama.cpp is an open-source project by Georgi Gerganov (ggerganov). Unlike most AI tools that require powerful NVIDIA GPUs, llama.cpp works well even on regular CPUs. But... there is an interesting catch. We will deal with it in the following articles, but for now, let's try to deploy llama.cpp on Windows and see what happens.
 
-Thank you for reading my "blabber" 🙏
+Thank you for reading my "blabber" 🙏 Keep calm and code on! 🚀
