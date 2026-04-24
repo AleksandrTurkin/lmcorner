@@ -7,7 +7,7 @@ author = ["Aleksandr T."]
 
 ### Hello there! 🖖
 
-### Recap
+### Overview
 * **Tool:** llama.cpp
 * **OS**: Windows
 

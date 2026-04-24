@@ -27,7 +27,7 @@ author = ["Aleksandr T."]
 
 ### Hello there! 🖖
 
-### Recap
+### Overview
 
 ## Step-by-Step Implementation
 
