@@ -26,15 +26,19 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 - Visual Studio 2026: `https://learn.microsoft.com/ru-ru/visualstudio/releases/2026/release-notes`
 
 ## Workflow
-1. Run `get-news-history`.
+1. Run `get-news-history`. If it returns `No previous news history found`, proceed to step 2.
 2. Fetch source content from the relevant URLs using `get-page-content`.
 3. Extract only release-note items related to GitHub Copilot or similar AI features.
 4. Ignore unrelated release-note content.
-5. Compare discovered versions with the existing news history.
+5. If `get-news-history` returned `No previous news history found`, treat all discovered relevant items as uncovered. Otherwise, compare discovered versions with the existing news history.
 6. Keep only new uncovered items.
-7. If no new relevant items remain, stop and report that no new news page is needed.
-8. If new relevant items exist, run `create-news-page` for the selected language.
-9. Update the created page content according to the file update rule below.
+7. If no new relevant items remain, stop and report that no new news pages are needed.
+8. If new relevant items exist, create both pages:
+   - run `create-news-page` for `en`
+   - run `create-news-page` for `ru`
+9. Generate English content for the English page.
+10. Generate Russian content for the Russian page.
+11. Update both created pages according to the file update rule below.
 
 ## File update rule
 1. Read the created file.
@@ -76,6 +80,7 @@ Ignore unrelated IDE/editor/platform changes.
 ## Version rules
 - Keep only the most recent uncovered version per software name.
 - Use version text exactly as found in the source.
+- Special case only for Visual Studio 2022 and Visual Studio 2026 when the source version is an April Update (for example, `April Update 18.5.0` or `Visual Studio 2022 version 17.14` that maps to April Update): format the heading version as `April Update <major.minor>` (for example, `April Update 18.5` or `April Update 17.14`).
 
 ## Result
 - If no new relevant items are found, return a short message that no page was created.
