@@ -7,7 +7,7 @@ author = ["Aleksandr T."]
 
 ### Hello there! 🖖
 
-### Recap
+### Overview
 * **Tool:** llama.cpp
 * **OS**: Windows
 
@@ -63,7 +63,7 @@ winget uninstall --id ggml.llamacpp
 **! Important:* The folder with the downloaded model will not be deleted automatically; you'll need to remove it manually. It is usually located at
 `%USERPROFILE%\.cache\huggingface\hub`
 
-### Blabber
+## Blabber
 Why do we need our own local {{< term "LLM" >}}!?
 
 On the one hand, 99.99% of tasks are already covered by existing services. I won't even try to list them: new tools appear every day, and it's impossible to keep up with this stream.

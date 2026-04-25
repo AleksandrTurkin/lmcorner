@@ -1,0 +1,123 @@
++++
+date = '2026-04-16T00:00:57+02:00'
+draft = true
+title = 'Новостной Агент'
+tags = ["aiAgent", "aiTools"]
+author = ["Александр Т."]
++++
+
+### Всем привет! 🖖
+
+### Краткий обзор
+
+* **Инструмент:** GitHub Copilot CLI
+* **ОС**: Windows
+
+```
+/// Установка GitHub Copilot CLI
+1. Win + R -> winget install GitHub.Copilot
+2. Terminal (CMD) -> copilot update
+3. CMD -> copilot -v
+
+/// Узнать путь установки GitHub Copilot CLI
+1. CMD -> where copilot
+```
+
+```
+/// Структура новостного агента
+.github/
+├── copilot-instructions.md     <-- Общие правила, контекст проекта
+├── agents/
+│   ├── news-agent.md           <-- Новостной агент
+└── skills/
+    ├── get-news-history        <-- Скилл (Навык) получения истории новостей
+    ├── get-page-content        <-- Получение контента веб-страницы
+    └── create-news-page        <-- Создание страницы новости
+```
+
+```
+/// Запуск агента
+copilot --autopilot --agent=news-agent --allow-all --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
+```
+
+- [copilot-instructions.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md)
+- [news-agent.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md)
+- [get-news-history](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md)
+- [get-page-content](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md)
+- [create-news-page](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md)
+
+## В деталях
+
+### Установка Copilot CLI
+1. Нажмите `Win + R` и введите `winget install GitHub.Copilot`.
+2. После установки откройте терминал (CMD) и выполните `copilot update` для получения последних обновлений. Winget не всегда доставляет самую актуальную версию 😕.
+3. Проверьте версию установленного Copilot CLI командой `copilot -v`.
+4. Узнать путь установки Copilot CLI можно с помощью `where copilot`.
+5. Открываем терминал и выполняем команду `copilot`.
+![Copilot CLI](copilotCli_1.png)
+
+*Примечание: Copilot CLI может потребовать вход в аккаунт GitHub при первом запуске.*
+
+Документацию по Copilot CLI можно найти здесь: https://docs.github.com/copilot/how-tos/copilot-cli
+
+### Новостной агент
+
+Это специальный Copilot Agent, который будет собирать новости о релизах AI-инструментов и обновлениях в GitHub Copilot CLI, Visual Studio Code, Visual Studio 2022/2026 и создавать страницы новостей (пока без автоматических коммитов — доверяй, но проверяй 😇). Агент будет выбирать из обновлений только ту информацию, которая относится к AI-функционалу.
+
+Структура новостного агента и его навыков (скиллов) организована следующим образом:
+```
+.github/
+├── copilot-instructions.md     <-- Общие правила, контекст проекта
+├── agents/
+│   ├── news-agent.md           <-- Новостной агент
+└── skills/
+    ├── get-news-history        <-- Скилл (Навык) получения истории новостей
+    ├── get-page-content        <-- Получение контента веб-страницы
+    └── create-news-page        <-- Создание страницы новости
+```
+
+- [**copilot-instructions.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md) — это общее описание проекта и правила для Copilot. Здесь я зафиксирую стек и версию Hugo, структуру проекта, расположение исходников, устройство локализации и контента. Также пропишу важные ограничения и правила, чтобы Copilot вносил изменения в правильные файлы и в стиле проекта.
+По моему личному мнению, здесь очень важен баланс. Copilot использует этот файл в качестве контекста и, по сути, добавляет его в каждый промпт. Соответственно, это напрямую влияет на количество токенов, которые мы тратим.
+
+- [**news-agent.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md) — описание самого агента, его навыков, источников информации и алгоритма работы. Здесь я максимально подробно описываю, что агент должен делать, какие скиллы использовать и в каком порядке, какие источники проверять, как фильтровать информацию и как создавать новостные страницы. 
+
+- [**get-news-history**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md) — навык для получения истории уже опубликованных новостей. Логика этого скилла довольно простая: берем последние 5 новостей и выбираем оттуда название приложения и его версию, чтобы потом сравнивать с тем, что мы найдем в свежих релизах.
+
+- [**get-page-content**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md) — навык для получения контента веб-страницы. В этом скилле скачивается страница и возвращается ее текстовое содержание в формате Markdown. Это нужно для того, чтобы агент мог анализировать релизные заметки и извлекать оттуда информацию о новых AI-функциях.
+
+- [**create-news-page**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md) — навык для создания страниц новостей. Здесь заданы Hugo-команды для создания новой страницы новости в зависимости от языка (русский или английский).
+
+### Запускаем агента
+
+```
+copilot --autopilot --agent=news-agent --allow-all --allow-all-urls --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
+```
+- `--autopilot` — позволяет агенту работать автономно, без необходимости подтверждения каждого шага.
+- `--agent=news-agent` — указывает, что мы хотим запустить нашего новостного агента.
+- `--allow-all` — разрешает агенту использовать все доступные инструменты.
+- `--add-dir='<Blog directory>'` — добавляет директорию блога в контекст агента, чтобы он мог создавать и изменять файлы в этой директории.
+- `--model=gpt-5.4` — указывает использовать модель GPT-5.4.
+- `--no-ask-user` — отключает запросы к пользователю, позволяя агенту работать полностью автономно.
+- ! Полный список доступных опций [ТУТ](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+
+### Источники
+- https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-custom-agents#agent-profile-format
+- https://docs.github.com/en/copilot/reference/custom-agents-configuration
+- https://code.visualstudio.com/docs/copilot/customization/custom-agents
+- https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/add-skills
+- https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli-agents/delegate-tasks-to-cca
+- https://docs.github.com/en/copilot/how-tos/copilot-cli/allowing-tools
+- https://docs.github.com/en/copilot/concepts/agents/copilot-cli/autopilot
+- https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#command-line-options
+
+## Болтовня
+
+И таааак... Это одна из моих `//todo` болей, о которых я говорил ранее: я не успеваю вручную отслеживать все эти релизы и изменения, связанные с AI 😅.
+Новостной агент был реализован, во-первых, для помощи мне (и, надеюсь, вам) оставаться в контексте малыми средствами, а во-вторых — чтобы проверить гипотезу использования кастомных агентов и скиллов. 
+Почему связка «агенты + скиллы» так важна? Как вы не раз уже замечали, один и тот же промпт может дать довольно разные результаты. Скиллы же позволяют нам разбить сложную задачу на более простые и контролируемые части, а агенты — управлять этими частями и их взаимодействием. В скилл можно заложить явную логику или даже скрипты, которые будут выполняться. Это дает самое важное, как по мне, — **предсказуемость**.
+
+С другой стороны, скилл может присутствовать в проекте, но он не обязательно будет вызываться агентом и «раздувать» промпт и контекст. Агент задействует скилл только по необходимости. Это одна из невероятно важных оптимизаций для экономии токенов.
+
+В новостном агенте присутствуют нюансы, над которыми я буду потинечку работать. К примеру, хочется добавить вызов формирования новостей по расписанию. При выполнении я всё равно получаю запросы на подтверждение доступа к внешним веб-страницам, а хотелось бы, чтобы всё происходило на 100% автономно. Ну и посмотрим на качество генерации новостей; возможно, позже будет добавлен скилл автоматического деплоя после создания страницы 🤞.
+
+#### Спасибо! Улыбаемся и пашем! 🚀

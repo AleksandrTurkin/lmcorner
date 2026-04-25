@@ -20,13 +20,17 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
 
         [languages.en.menu]
             [[languages.en.menu.main]]
-                name = "Glossary"
-                url = "/glossary"
+                name = "News"
+                url = "/news"
                 weight = 10
             [[languages.en.menu.main]]
-                    name = "Tags"
-                    url = "/tags"
-                    weight = 20
+                name = "Glossary"
+                url = "/glossary"
+                weight = 20
+            [[languages.en.menu.main]]
+                name = "Tags"
+                url = "/tags"
+                weight = 30
 
     [languages.ru]
         languageCode = 'ru-ru'
@@ -41,13 +45,17 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
 
         [languages.ru.menu]
             [[languages.ru.menu.main]]
-                name = "Глоссарий"
-                url = "/glossary"
+                name = "Новости"
+                url = "/news"
                 weight = 10
             [[languages.ru.menu.main]]
-                    name = "Тэги"
-                    url = "/tags"
-                    weight = 20
+                name = "Глоссарий"
+                url = "/glossary"
+                weight = 20
+            [[languages.ru.menu.main]]
+                name = "Тэги"
+                url = "/tags"
+                weight = 30
 [params]
     # This tells PaperMod to show the language switcher
     displayFullLangName = true    
