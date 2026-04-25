@@ -40,11 +40,11 @@ author = ["Aleksandr T."]
 copilot --autopilot --agent=news-agent --allow-all --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
 ``` 
 
-- [copilot-instructions.md]()
-- [news-agent.md]()
-- [get-news-history]()
-- [get-page-content]()
-- [create-news-page]()
+- [copilot-instructions.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md)
+- [news-agent.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md)
+- [get-news-history](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md)
+- [get-page-content](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md)
+- [create-news-page](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md)
 
 ## Step-by-Step Implementation
 
@@ -76,15 +76,15 @@ The News Agent and its **skills** are organized as follows:
     └── create-news-page        <-- Skill: Generate news page
 ```
 
-- [**copilot-instructions.md**]() — This file contains the overall project description and guidelines for Copilot. It defines the Hugo stack and version, project structure, localization setup, and important constraints. This ensures that Copilot remains consistent with the project's style when making changes. In my opinion, finding the right balance here is crucial, as Copilot uses this file as context for every prompt, directly impacting token usage.
+- [**copilot-instructions.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md) — This file contains the overall project description and guidelines for Copilot. It defines the Hugo stack and version, project structure, localization setup, and important constraints. This ensures that Copilot remains consistent with the project's style when making changes. In my opinion, finding the right balance here is crucial, as Copilot uses this file as context for every prompt, directly impacting token usage.
 
-- [**news-agent.md**]() — This file describes the agent itself, its available skills, information sources, and workflow. It provides detailed instructions on what the agent should do, which skills to use and in what order, which sources to check, how to filter information, and how to generate news pages.
+- [**news-agent.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md) — This file describes the agent itself, its available skills, information sources, and workflow. It provides detailed instructions on what the agent should do, which skills to use and in what order, which sources to check, how to filter information, and how to generate news pages.
 
-- [**get-news-history**]() — Designed to retrieve the history of already published news. The logic is straightforward: it fetches the last five items and extracts application names and versions for comparison with fresh releases.
+- [**get-news-history**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md) — Designed to retrieve the history of already published news. The logic is straightforward: it fetches the last five items and extracts application names and versions for comparison with fresh releases.
 
-- [**get-page-content**]() — Responsible for fetching web page content and converting it into Markdown. This allows the agent to analyze release notes and extract information about new AI features efficiently.
+- [**get-page-content**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md) — Responsible for fetching web page content and converting it into Markdown. This allows the agent to analyze release notes and extract information about new AI features efficiently.
 
-- [**create-news-page**]() — Handles the generation of news pages using predefined Hugo commands, depending on the target language (Russian or English).
+- [**create-news-page**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md) — Handles the generation of news pages using predefined Hugo commands, depending on the target language (Russian or English).
 
 ### Running the Agent
 

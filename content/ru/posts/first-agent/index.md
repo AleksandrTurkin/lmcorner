@@ -40,11 +40,11 @@ author = ["Александр Т."]
 copilot --autopilot --agent=news-agent --allow-all --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
 ```
 
-- [copilot-instructions.md]()
-- [news-agent.md]()
-- [get-news-history]()
-- [get-page-content]()
-- [create-news-page]()
+- [copilot-instructions.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md)
+- [news-agent.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md)
+- [get-news-history](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md)
+- [get-page-content](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md)
+- [create-news-page](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md)
 
 ## В деталях
 
@@ -76,16 +76,16 @@ copilot --autopilot --agent=news-agent --allow-all --add-dir='<Blog directory>' 
     └── create-news-page        <-- Создание страницы новости
 ```
 
-- [**copilot-instructions.md**]() — это общее описание проекта и правила для Copilot. Здесь я зафиксирую стек и версию Hugo, структуру проекта, расположение исходников, устройство локализации и контента. Также пропишу важные ограничения и правила, чтобы Copilot вносил изменения в правильные файлы и в стиле проекта.
+- [**copilot-instructions.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md) — это общее описание проекта и правила для Copilot. Здесь я зафиксирую стек и версию Hugo, структуру проекта, расположение исходников, устройство локализации и контента. Также пропишу важные ограничения и правила, чтобы Copilot вносил изменения в правильные файлы и в стиле проекта.
 По моему личному мнению, здесь очень важен баланс. Copilot использует этот файл в качестве контекста и, по сути, добавляет его в каждый промпт. Соответственно, это напрямую влияет на количество токенов, которые мы тратим.
 
-- [**news-agent.md**]() — описание самого агента, его навыков, источников информации и алгоритма работы. Здесь я максимально подробно описываю, что агент должен делать, какие скиллы использовать и в каком порядке, какие источники проверять, как фильтровать информацию и как создавать новостные страницы. 
+- [**news-agent.md**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/agents/news-agent.md) — описание самого агента, его навыков, источников информации и алгоритма работы. Здесь я максимально подробно описываю, что агент должен делать, какие скиллы использовать и в каком порядке, какие источники проверять, как фильтровать информацию и как создавать новостные страницы. 
 
-- [**get-news-history**]() — навык для получения истории уже опубликованных новостей. Логика этого скилла довольно простая: берем последние 5 новостей и выбираем оттуда название приложения и его версию, чтобы потом сравнивать с тем, что мы найдем в свежих релизах.
+- [**get-news-history**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-news-history/SKILL.md) — навык для получения истории уже опубликованных новостей. Логика этого скилла довольно простая: берем последние 5 новостей и выбираем оттуда название приложения и его версию, чтобы потом сравнивать с тем, что мы найдем в свежих релизах.
 
-- [**get-page-content**]() — навык для получения контента веб-страницы. В этом скилле скачивается страница и возвращается ее текстовое содержание в формате Markdown. Это нужно для того, чтобы агент мог анализировать релизные заметки и извлекать оттуда информацию о новых AI-функциях.
+- [**get-page-content**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/get-page-content/SKILL.md) — навык для получения контента веб-страницы. В этом скилле скачивается страница и возвращается ее текстовое содержание в формате Markdown. Это нужно для того, чтобы агент мог анализировать релизные заметки и извлекать оттуда информацию о новых AI-функциях.
 
-- [**create-news-page**]() — навык для создания страниц новостей. Здесь заданы Hugo-команды для создания новой страницы новости в зависимости от языка (русский или английский).
+- [**create-news-page**](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/skills/create-news-page/SKILL.md) — навык для создания страниц новостей. Здесь заданы Hugo-команды для создания новой страницы новости в зависимости от языка (русский или английский).
 
 ### Запускаем агента
 
