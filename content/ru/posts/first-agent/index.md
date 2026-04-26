@@ -1,6 +1,6 @@
 +++
 date = '2026-04-16T00:00:57+02:00'
-draft = true
+draft = false
 title = 'Новостной Агент'
 tags = ["aiAgent", "aiTools"]
 author = ["Александр Т."]
