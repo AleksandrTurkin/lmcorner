@@ -31,14 +31,15 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 3. Extract only release-note items related to GitHub Copilot or similar AI features.
 4. Ignore unrelated release-note content.
 5. If `get-news-history` returned `No previous news history found`, treat all discovered relevant items as uncovered. Otherwise, compare discovered versions with the existing news history.
-6. Keep only new uncovered items.
-7. If no new relevant items remain, stop and report that no new news pages are needed.
-8. If new relevant items exist, create both pages:
+6. Keep all uncovered items between the latest covered version and the current latest source version for each software.
+7. For Copilot CLI specifically, include each missing release in the uncovered range (for example, if history has `1.0.35` and source has `1.0.40`, include `1.0.36`, `1.0.37`, `1.0.38`, `1.0.39`, and `1.0.40` when they contain relevant AI changes).
+8. If no new relevant items remain, stop and report that no new news pages are needed.
+9. If new relevant items exist, create both pages:
    - run `create-news-page` for `en`
    - run `create-news-page` for `ru`
-9. Generate English content for the English page.
-10. Generate Russian content for the Russian page.
-11. Update both created pages according to the file update rule below.
+10. Generate English content for the English page.
+11. Generate Russian content for the Russian page.
+12. Update both created pages according to the file update rule below.
 
 ## File update rule
 1. Read the created file.
@@ -78,9 +79,13 @@ Ignore unrelated IDE/editor/platform changes.
 - Do not translate software names.
 
 ## Version rules
-- Keep only the most recent uncovered version per software name.
+- Do not collapse to only one version. Keep all uncovered versions in the gap between covered history and latest source for each software.
+- If history exists, include versions strictly newer than the latest covered version and up to the latest source version.
+- For patch/minor sequences (for example Copilot CLI `1.0.36` to `1.0.40`), include each missing version as its own section when relevant AI notes exist.
+- Order sections from oldest uncovered version to newest uncovered version per software.
 - Use version text exactly as found in the source.
-- Special case only for Visual Studio 2022 and Visual Studio 2026 when the source version is an April Update (for example, `April Update 18.5.0` or `Visual Studio 2022 version 17.14` that maps to April Update): format the heading version as `April Update <major.minor>` (for example, `April Update 18.5` or `April Update 17.14`).
+- For Visual Studio 2022, and Visual Studio 2026, keep the full numeric version in headings (for example, `17.14.31`), never truncate to `major.minor`.
+- If the source labels the release as an April Update, keep that label but preserve the full version number (for example, `April Update 17.14.31` or `April Update 18.5.0`).
 
 ## Result
 - If no new relevant items are found, return a short message that no page was created.

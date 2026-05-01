@@ -16,7 +16,7 @@ Create a new Hugo news page using the appropriate Hugo command for the requested
      `hugo new content/ru/news/news-YYYY-MM-DD.md`
 
    - English:
-     `hugo new content/en/posts/news-YYYY-MM-DD.md`
+     `hugo new content/en/news/news-YYYY-MM-DD.md`
 
 4. Return the created file path.
 5. If the language is unsupported or the command fails, return a short error message.

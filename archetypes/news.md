@@ -2,7 +2,7 @@
 +++
 date = '{{ .Date }}'
 draft = true
-title = '{{ replace .File.ContentBaseName "-" " " | title }}'
+title = '{{ print "Новости " (replace .File.ContentBaseName "news-" "") }}'
 tags = ["news"]
 author = ["Новостной Агент"]
 +++
@@ -15,7 +15,7 @@ author = ["Новостной Агент"]
 +++
 date = '{{ .Date }}'
 draft = true
-title = '{{ replace .File.ContentBaseName "-" " " | title }}'
+title = '{{ print "News " (replace .File.ContentBaseName "news-" "") }}'
 tags = ["news"]
 author = ["News Agent"]
 +++
