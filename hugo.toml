@@ -62,6 +62,7 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
     labelTagName = "#"
     showBreadCrumbs = true
     showReadingTime = true
+    analytics.google.id = "G-0CSXG3MLL4"
 
     [[params.socialIcons]]
         name = "linkedin"
