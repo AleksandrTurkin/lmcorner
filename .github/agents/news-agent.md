@@ -87,6 +87,11 @@ Ignore unrelated IDE/editor/platform changes.
 - For Visual Studio 2022, and Visual Studio 2026, keep the full numeric version in headings (for example, `17.14.31`), never truncate to `major.minor`.
 - If the source labels the release as an April Update, keep that label but preserve the full version number (for example, `April Update 17.14.31` or `April Update 18.5.0`).
 
+## Git rules
+- Local content update only. The agent may create and edit news files but must not run any git commands.
+- Never run `git add`, `git commit`, `git push`, `gh`, or open pull requests.
+- Leave all version control actions for manual execution by the user.
+
 ## Result
 - If no new relevant items are found, return a short message that no page was created.
 - If a page is created, return the file path and included software/version items.
