@@ -62,6 +62,7 @@ defaultContentLanguageInSubdir = false # Keeps English at the root (/)
     labelTagName = "#"
     showBreadCrumbs = true
     showReadingTime = true
+    mainSections = ["posts"]
 
     [[params.socialIcons]]
         name = "linkedin"
