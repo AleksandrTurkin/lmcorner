@@ -89,7 +89,7 @@ The News Agent and its **skills** are organized as follows:
 ### Running the Agent
 
 ```
-copilot --autopilot --agent=news-agent --allow-all --allow-all-urls --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
+copilot --autopilot --agent news-agent --allow-all --add-dir "C:\Projects\Blog\src\lmcorner" --no-ask-user -p "Check all configured sources, find new AI-related release notes, and update today's English and Russian daily news pages if needed."
 ```
 
 - `--autopilot` — Enables the agent to operate autonomously without requiring confirmation for each step.
