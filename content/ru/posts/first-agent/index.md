@@ -37,7 +37,7 @@ author = ["Александр Т."]
 
 ```
 /// Запуск агента
-copilot --autopilot --agent news-agent --allow-all --add-dir "C:\Projects\Blog\src\lmcorner" --no-ask-user -p "Check all configured sources, find new AI-related release notes, and update today's English and Russian daily news pages if needed."
+copilot --autopilot --agent news-agent --allow-all --add-dir "<Blog directory>" --no-ask-user -p "Check all configured sources, find new AI-related release notes, and update today's English and Russian daily news pages if needed."
 ```
 
 - [copilot-instructions.md](https://github.com/AleksandrTurkin/lmcorner/blob/main/.github/copilot-instructions.md)
@@ -90,7 +90,7 @@ copilot --autopilot --agent news-agent --allow-all --add-dir "C:\Projects\Blog\s
 ### Запускаем агента
 
 ```
-copilot --autopilot --agent=news-agent --allow-all --allow-all-urls --add-dir='<Blog directory>' --model=gpt-5.4 --no-ask-user
+copilot --autopilot --agent news-agent --allow-all --add-dir "<Blog directory>" --no-ask-user -p "Check all configured sources, find new AI-related release notes, and update today's English and Russian daily news pages if needed."
 ```
 - `--autopilot` — позволяет агенту работать автономно, без необходимости подтверждения каждого шага.
 - `--agent=news-agent` — указывает, что мы хотим запустить нашего новостного агента.
