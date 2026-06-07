@@ -1,6 +1,5 @@
 +++
 date = '2026-05-12T01:36:50+02:00'
-draft = true
 title = 'Agentic Coding, Part 1: API & Ecosystem'
 tags = ["agent-coding", "jardi-learn"]
 author = ["Aleksandr T."]
