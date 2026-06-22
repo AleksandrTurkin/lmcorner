@@ -1,7 +1,7 @@
 +++
 date = '2026-05-12T01:36:44+02:00'
 title = 'Агентское программирование. Часть 1: API & Экосистема'
-tags = ["agent-coding", "jardi-learn"]
+tags = ["agent-coding", "jardi-tips"]
 author = ["Александр Т."]
 +++
 
