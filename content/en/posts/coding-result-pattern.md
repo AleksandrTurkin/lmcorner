@@ -1,6 +1,6 @@
 +++
 date = '2026-06-19T00:41:14+02:00'
-title = 'Agentic Coding: Result Pattern'
+title = 'Agentic Coding. Part 2.0: Result Pattern'
 tags = ["best-practices", "software-design", "dotnet", "jardi-tips"]
 author = ["Aleksandr T."]
 +++

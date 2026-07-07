@@ -1,6 +1,6 @@
 +++
 date = '2026-06-19T00:41:08+02:00'
-title = 'Агентское программирование: Result Pattern'
+title = 'Агентское программирование. Часть 2.0: Result Pattern'
 tags = ["best-practices", "software-design", "dotnet", "jardi-tips"]
 author = ["Александр Т."]
 +++
