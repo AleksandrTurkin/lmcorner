@@ -29,13 +29,13 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 1. Run `get-news-history`. If it returns `No previous news history found`, proceed to step 2.
 2. Check every source listed in the `Sources` section on every run. This is mandatory even if one source already produced news items.
 3. Fetch source content from every listed URL using `get-page-content`.
-4. For each source, identify the latest version currently published by that source.
-5. For each source, compare the latest source version with the latest version already covered in `get-news-history` for that same software.
+4. For each source, identify the latest stable version currently published by that source. Exclude prerelease, preview, beta, alpha, release-candidate, and nightly versions before identifying the latest version or comparing release history.
+5. For each source, compare the latest stable source version with the latest stable version already covered in `get-news-history` for that same software. Do not let prerelease history entries affect this comparison.
 6. If `get-news-history` returned `No previous news history found`, treat all discovered relevant items as uncovered. Otherwise, only versions newer than the latest covered version for that software are candidates.
 7. Extract only release-note items related to GitHub Copilot or similar AI features from each uncovered candidate version.
 8. Ignore unrelated release-note content.
 9. Keep all uncovered items between the latest covered version and the current latest source version for each software.
-10. For Copilot CLI specifically, include each missing release in the uncovered range (for example, if history has `1.0.35` and source has `1.0.40`, include `1.0.36`, `1.0.37`, `1.0.38`, `1.0.39`, and `1.0.40` when they contain relevant AI changes).
+10. For Copilot CLI specifically, include each missing stable release in the uncovered range (for example, if history has `1.0.35` and source has `1.0.40`, include `1.0.36`, `1.0.37`, `1.0.38`, `1.0.39`, and `1.0.40` when they contain relevant AI changes). Never include a Copilot CLI prerelease, including numeric hyphenated tags such as `1.0.69-3`.
 11. Do not skip a source just because another source already has new items. Evaluate all sources first, then generate the full combined set of uncovered relevant items.
 12. If a source has a newer version than the latest covered version in news history and that newer version contains qualifying AI or agent changes, include it.
 13. If no new relevant items remain after checking all sources, stop and report that no news page update is needed.
@@ -111,6 +111,7 @@ Ignore unrelated IDE/editor/platform changes.
 - For patch/minor sequences (for example Copilot CLI `1.0.36` to `1.0.40`), include each missing version as its own section when relevant AI notes exist.
 - Order sections from oldest uncovered version to newest uncovered version per software.
 - Use version text exactly as found in the source.
+- Include stable releases only. Exclude versions identified by the source as prerelease, preview, beta, alpha, release candidate, or nightly. For Copilot CLI, treat any semver version with a hyphenated suffix (for example, `1.0.69-3`) as a prerelease and exclude it.
 - For Visual Studio 2022, and Visual Studio 2026, keep the full numeric version in headings (for example, `17.14.31`), never truncate to `major.minor`.
 - If the source labels the release as an April Update, keep that label but preserve the full version number (for example, `April Update 17.14.31` or `April Update 18.5.0`).
 
