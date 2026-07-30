@@ -1,18 +1,54 @@
 +++
 date = '2026-07-30T00:25:35+02:00'
 draft = true
-title = 'Copilot CLI vs Gemini CLI: Cравнение команд'
+title = 'Copilot CLI vs Gemini CLI: сравнение команд'
 tags = ["aiTools"]
 author = ["Александр Т."]
 +++
 
 ### Всем привет! 🖖
 
-Здесь сопоставлены фиксированные встроенные интерактивные команды Copilot CLI и Gemini CLI, задокументированные на 30 июля 2026 года. В сравнение вошли slash-команды и документированные формы `@` и `!`. Параметры запуска, переменные среды, сочетания клавиш и пользовательские команды не включены.
+### Краткий обзор
 
-`X` означает, что у другого CLI нет прямого документированного аналога. Для близких, но не идентичных функций различие указано в описании.
+**Copilot CLI сильнее выглядит в:**
 
-Источники: [справочник GitHub Copilot CLI](https://docs.github.com/ru/copilot/reference/copilot-cli-reference/cli-command-reference) и [команды Gemini CLI](https://geminicli.com/docs/reference/commands/). Официальная страница Gemini CLI пока доступна только на английском; описания Gemini в этой статье переведены с нее.
+- GitHub workflow;
+- code review и security review;
+- управлении diff;
+- sandbox и permissions;
+- параллельной работе через `/fleet`;
+- agentic-сценариях вроде `/delegate`, `/rubber-duck`, `/research`;
+- работе с worktree и экспериментальными сессиями;
+- управлении релизами и версией CLI.
+
+**Gemini CLI сильнее выглядит в:**
+
+- custom slash-командах;
+- hooks;
+- policies и privacy;
+- иерархической памяти через `GEMINI.md`;
+- явном управлении IDE integration;
+- управлении фоновыми shell-процессами;
+- folder trust;
+- явных командах управления расширениями.
+
+## Сравнение команд Copilot CLI и Gemini CLI
+
+Я сравниваю только фиксированные встроенные интерактивные команды:
+
+- slash-команды;
+- документированные формы `@`;
+- документированные формы `!`.
+
+В сравнение не входят:
+
+- параметры запуска CLI;
+- переменные среды;
+- сочетания клавиш;
+- пользовательские команды;
+- недокументированные или экспериментальные возможности.
+
+Если команда есть у одного CLI, но у другого есть только похожий сценарий без прямого документированного аналога, я оставляю `X` и поясняю различие в описании.
 
 ## Основной рабочий процесс
 
@@ -140,7 +176,8 @@ author = ["Александр Т."]
     - Gemini CLI: `X`
 
     _Делегирование изменения, второе мнение и глубокое исследование темы._
-- **Pull request**
+
+- **GitHub workflow**
     - Copilot CLI: `/pr`
     - Gemini CLI: `/setup-github`
 
@@ -155,7 +192,7 @@ author = ["Александр Т."]
 
 - **Расширения и плагины**
     - Copilot CLI: `/plugins`, `/plugin`, `/extensions`, `/extension`
-    - Gemini CLI: `/extensions`
+    - Gemini CLI: `/extensions config`, `/extensions disable`, `/extensions enable`, `/extensions explore`, `/extensions install`, `/extensions link`, `/extensions list`, `/extensions restart`, `/extensions uninstall`, `/extensions update`
 
     _Обе CLI управляют расширениями; Copilot также объединяет плагины, marketplace, MCP-серверы и навыки в одной панели._
 - **Навыки**
@@ -234,5 +271,24 @@ author = ["Александр Т."]
     - Gemini CLI: `! COMMAND`, `!`
 
     _Можно выполнить одну команду или включить shell-режим для нескольких команд._
+
+## Источники и ограничения
+
+Сравнение сделано по официальной документации на 30 июля 2026 года:
+
+- [справочник GitHub Copilot CLI](https://docs.github.com/ru/copilot/reference/copilot-cli-reference/cli-command-reference)
+- [команды Gemini CLI](https://geminicli.com/docs/reference/commands/)
+
+## Болтовня
+
+В целом Copilot CLI и Gemini CLI имеют довольно схожий набор возможностей: работа с моделью, планирование, сессии, MCP, workspace, shell-команды, навыки и расширения.
+
+Но различия всё равно хорошо видны. В Copilot CLI есть несколько интересных agentic-сценариев, которых я не нашёл в Gemini CLI как прямых документированных аналогов. Например, `/rubber-duck` - полезная концепция второго мнения от другой модели.
+
+Ещё мне нравится, что у Copilot CLI много команд вокруг GitHub workflow: pull request, review, security review, diff, worktree, fork сессии и параллельные агенты. Это делает его очень удобным именно для разработки внутри GitHub-экосистемы.
+
+А у Gemini CLI мне понравилась идея пользовательских команд через `/commands list` и `/commands reload`. Это удобный способ превращать повторяющиеся промпты в локальные команды. Плюс у Gemini интересно выглядят hooks, policies, privacy-настройки и иерархическая память через `GEMINI.md`.
+
+В итоге я бы не сказал, что один CLI полностью заменяет другой. Copilot CLI больше похож на GitHub-native agentic coding environment, а Gemini CLI - на расширяемый локальный AI-инструмент с хорошей кастомизацией.
 
 #### Спасибо! Улыбаемся и пашем! 🚀

@@ -8,11 +8,47 @@ author = ["Aleksandr T."]
 
 ### Hello there! 🖖
 
-This reference compares the fixed, built-in interactive commands documented for Copilot CLI and Gemini CLI as of July 30, 2026. It covers slash commands plus documented `@` and `!` forms. Startup options, environment variables, keyboard-only shortcuts, and user-defined commands are outside the comparison.
+### Overview
 
-`X` means that the other CLI has no direct documented counterpart. Near matches state the difference instead of treating similar names as identical commands.
+**Copilot CLI looks stronger in:**
 
-Sources: [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference) and [Gemini CLI commands](https://geminicli.com/docs/reference/commands/).
+- GitHub workflow;
+- code review and security review;
+- diff management;
+- sandbox and permissions;
+- parallel work through `/fleet`;
+- agentic scenarios like `/delegate`, `/rubber-duck`, `/research`;
+- worktree and experimental sessions;
+- release and CLI version management.
+
+**Gemini CLI looks stronger in:**
+
+- custom slash commands;
+- hooks;
+- policies and privacy;
+- hierarchical memory through `GEMINI.md`;
+- explicit IDE integration management;
+- background shell process management;
+- folder trust;
+- explicit extension management commands.
+
+## Command Comparison: Copilot CLI vs Gemini CLI
+
+I compare only fixed, built-in interactive commands:
+
+- slash commands;
+- documented `@` forms;
+- documented `!` forms.
+
+The comparison does not include:
+
+- CLI startup options;
+- environment variables;
+- keyboard shortcuts;
+- user-defined commands;
+- undocumented or experimental features.
+
+If one CLI has a command, but the other CLI only has a similar scenario without a direct documented counterpart, I use `X` and explain the difference in the description.
 
 ## Core Workflow
 
@@ -140,7 +176,7 @@ Sources: [GitHub Copilot CLI command reference](https://docs.github.com/en/copil
   - Gemini CLI: `X`
 
   _Delegate a change, request a second opinion, or research a topic._
-- **Pull requests**
+- **GitHub workflow**
   - Copilot CLI: `/pr`
   - Gemini CLI: `/setup-github`
 
@@ -155,7 +191,7 @@ Sources: [GitHub Copilot CLI command reference](https://docs.github.com/en/copil
 
 - **Extensions and plugins**
   - Copilot CLI: `/plugins`, `/plugin`, `/extensions`, `/extension`
-  - Gemini CLI: `/extensions`
+  - Gemini CLI: `/extensions config`, `/extensions disable`, `/extensions enable`, `/extensions explore`, `/extensions install`, `/extensions link`, `/extensions list`, `/extensions restart`, `/extensions uninstall`, `/extensions update`
 
   _Both manage extensions; Copilot also integrates plugins, marketplaces, MCP servers, and skills in one dashboard._
 - **Skills**
@@ -239,5 +275,24 @@ Sources: [GitHub Copilot CLI command reference](https://docs.github.com/en/copil
   - Gemini CLI: `! COMMAND`, `!`
 
   _Run one command or enter shell mode for several commands._
+
+## Sources and limitations
+
+The comparison is based on the official documentation as of July 30, 2026:
+
+- [GitHub Copilot CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+- [Gemini CLI commands](https://geminicli.com/docs/reference/commands/)
+
+## Blabber
+
+In general, Copilot CLI and Gemini CLI have a pretty similar set of capabilities: model selection, planning, sessions, MCP, workspace, shell commands, skills, and extensions.
+
+But the differences are still clearly visible. Copilot CLI has several interesting agentic scenarios that I did not find in Gemini CLI as direct documented counterparts. For example, `/rubber-duck` is a useful concept for getting a second opinion from another model.
+
+I also like that Copilot CLI has many commands around GitHub workflow: pull request, review, security review, diff, worktree, session fork, and parallel agents. This makes it very convenient for development inside the GitHub ecosystem.
+
+In Gemini CLI, I like the idea of custom commands through `/commands list` and `/commands reload`. This is a convenient way to turn repeated prompts into local commands. Also, hooks, policies, privacy settings, and hierarchical memory through `GEMINI.md` look interesting in Gemini.
+
+So I would not say that one CLI completely replaces the other. Copilot CLI looks more like a GitHub-native agentic coding environment, while Gemini CLI looks more like an extensible local AI tool with good customization.
 
 #### Thanks! Keep calm and code on! 🚀
