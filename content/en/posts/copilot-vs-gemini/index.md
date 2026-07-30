@@ -289,10 +289,10 @@ In general, Copilot CLI and Gemini CLI have a pretty similar set of capabilities
 
 But the differences are still clearly visible. Copilot CLI has several interesting agentic scenarios that I did not find in Gemini CLI as direct documented counterparts. For example, `/rubber-duck` is a useful concept for getting a second opinion from another model.
 
-I also like that Copilot CLI has many commands around GitHub workflow: pull request, review, security review, diff, worktree, session fork, and parallel agents. This makes it very convenient for development inside the GitHub ecosystem.
-
 In Gemini CLI, I like the idea of custom commands through `/commands list` and `/commands reload`. This is a convenient way to turn repeated prompts into local commands. Also, hooks, policies, privacy settings, and hierarchical memory through `GEMINI.md` look interesting in Gemini.
 
 So I would not say that one CLI completely replaces the other. Copilot CLI looks more like a GitHub-native agentic coding environment, while Gemini CLI looks more like an extensible local AI tool with good customization.
+
+![Work Hard](work-hard_en.png)
 
 #### Thanks! Keep calm and code on! 🚀
