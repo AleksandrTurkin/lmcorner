@@ -1,6 +1,5 @@
 +++
 date = '2026-07-30T00:25:35+02:00'
-draft = true
 title = 'Copilot CLI vs Gemini CLI: Command Comparison'
 tags = ["aiTools"]
 author = ["Aleksandr T."]
