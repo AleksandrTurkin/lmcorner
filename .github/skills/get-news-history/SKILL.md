@@ -22,6 +22,7 @@ Scan `content/en/news` for files matching `news-YYYY-MM-DD.md` and return the la
 8. While processing files from newest to oldest, keep only the first entry found for each software `name`.
 9. Return a bullet list in this format:
    - `<name> <version> — <filename>`
+10. Preserve software names exactly as written in their canonical headings. In particular, treat `GitHub Copilot App` and `GitHub Copilot CLI` as distinct software products.
 
 ## Canonical heading rules
 - Accept only level-3 headings that exactly follow:
@@ -29,6 +30,7 @@ Scan `content/en/news` for files matching `news-YYYY-MM-DD.md` and return the la
 - `name` is the text before ` - `.
 - `version` is the text after ` - `.
 - Preserve version text exactly as found.
+- Do not normalize, abbreviate, or merge software names.
 - Do not infer versions from arbitrary prose outside the canonical heading format.
 - Ignore headings that do not match confidently.
 

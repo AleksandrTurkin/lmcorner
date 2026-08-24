@@ -22,6 +22,7 @@ Use shell commands with built-in Windows PowerShell to retrieve content from a s
 - Prefer readable page content over raw HTML when possible.
 - Remove obvious scripts, styles, menus, and boilerplate when possible.
 - Preserve the source wording as much as possible.
+- For GitHub Releases pages, retain every release tag, release title, prerelease or draft status, publication date, and release-note body that can be extracted.
 - Output must always be valid Markdown.
 
 ## Implementation Note

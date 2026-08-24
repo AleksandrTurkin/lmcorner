@@ -14,6 +14,7 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 
 ## Sources
 ### Common
+- GitHub Copilot: `https://github.com/github/app/releases`
 - Copilot CLI: `https://github.com/github/copilot-cli/releases`
 - Visual Studio Code: `https://code.visualstudio.com/updates`
 
@@ -35,21 +36,22 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 7. Extract only release-note items related to GitHub Copilot or similar AI features from each uncovered candidate version.
 8. Ignore unrelated release-note content.
 9. Keep all uncovered items between the latest covered version and the current latest source version for each software.
-10. For Copilot CLI specifically, include each missing stable release in the uncovered range (for example, if history has `1.0.35` and source has `1.0.40`, include `1.0.36`, `1.0.37`, `1.0.38`, `1.0.39`, and `1.0.40` when they contain relevant AI changes). Never include a Copilot CLI prerelease, including numeric hyphenated tags such as `1.0.69-3`.
-11. Do not skip a source just because another source already has new items. Evaluate all sources first, then generate the full combined set of uncovered relevant items.
-12. If a source has a newer version than the latest covered version in news history and that newer version contains qualifying AI or agent changes, include it.
-13. If no new relevant items remain after checking all sources, stop and report that no news page update is needed.
-14. Determine today's daily news file path for both languages:
+10. Treat GitHub Copilot and GitHub Copilot CLI as distinct software products and compare each only with history recorded under its exact name. For the GitHub Copilot application source, use `GitHub Copilot App` exactly in generated headings. For the CLI source, use `GitHub Copilot CLI` exactly.
+11. For GitHub Copilot and Copilot CLI release feeds, include each missing stable release in the uncovered range when it contains relevant AI changes. Never include a prerelease, including numeric hyphenated Copilot CLI tags such as `1.0.69-3`.
+12. Do not skip a source just because another source already has new items. Evaluate all sources first, then generate the full combined set of uncovered relevant items.
+13. If a source has a newer version than the latest covered version in news history and that newer version contains qualifying AI or agent changes, include it.
+14. If no new relevant items remain after checking all sources, stop and report that no news page update is needed.
+15. Determine today's daily news file path for both languages:
    - English: `content/en/news/news-YYYY-MM-DD.md`
    - Russian: `content/ru/news/news-YYYY-MM-DD.md`
-15. For each language, check whether today's daily page already exists.
-16. If today's daily page exists, reuse that file. Do not create another page for the same date.
-17. If today's daily page does not exist, create it once for that language by running `create-news-page`.
-18. Never create additional same-day files with suffixes such as `news-YYYY-MM-DD-something.md` when the daily page already exists.
-19. Before generating content for a language, read one recent existing news page in that same language and use it as the formatting reference for section style.
-20. Generate English content for the English daily page.
-21. Generate Russian content for the Russian daily page.
-22. Update both daily pages according to the file update rule below.
+16. For each language, check whether today's daily page already exists.
+17. If today's daily page exists, reuse that file. Do not create another page for the same date.
+18. If today's daily page does not exist, create it once for that language by running `create-news-page`.
+19. Never create additional same-day files with suffixes such as `news-YYYY-MM-DD-something.md` when the daily page already exists.
+20. Before generating content for a language, read one recent existing news page in that same language and use it as the formatting reference for section style.
+21. Generate English content for the English daily page.
+22. Generate Russian content for the Russian daily page.
+23. Update both daily pages according to the file update rule below.
 
 ## File update rule
 1. Read the daily file that will be updated.
@@ -112,6 +114,7 @@ Ignore unrelated IDE/editor/platform changes.
 - Order sections from oldest uncovered version to newest uncovered version per software.
 - Use version text exactly as found in the source.
 - Include stable releases only. Exclude versions identified by the source as prerelease, preview, beta, alpha, release candidate, or nightly. For Copilot CLI, treat any semver version with a hyphenated suffix (for example, `1.0.69-3`) as a prerelease and exclude it.
+- For GitHub Releases sources, use the release tag as the version and exclude releases marked prerelease or draft.
 - For Visual Studio 2022, and Visual Studio 2026, keep the full numeric version in headings (for example, `17.14.31`), never truncate to `major.minor`.
 - If the source labels the release as an April Update, keep that label but preserve the full version number (for example, `April Update 17.14.31` or `April Update 18.5.0`).
 
