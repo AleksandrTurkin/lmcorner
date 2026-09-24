@@ -62,9 +62,10 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 4. Treat any existing sections after that heading as already published items for the same day.
 5. Combine the existing same-day sections with the newly generated sections.
 6. Deduplicate sections by exact heading `### <Software> - <Version>`.
-7. Keep existing same-day sections first and append only genuinely new sections in chronological order.
-8. Replace everything after that heading with the combined deduplicated content.
-9. Do not modify front matter or any text before the heading.
+7. Group sections by exact software name, keeping all versions of one application adjacent. Preserve the order in which software groups first appear on the daily page; append new software groups after existing groups.
+8. Within each software group, order versions from oldest to newest. Insert new versions into an existing software group rather than appending them after a different application's sections. Preserve the existing wording of same-day sections.
+9. Replace everything after that heading with the combined deduplicated content.
+10. Do not modify front matter or any text before the heading.
 
 ## Content format
 All generated page content must be valid Markdown.
@@ -81,7 +82,8 @@ Example:
 - Shell completions (bash, zsh, fish) are automatically installed and updated; improved tab-completion for slash commands that accept arguments.
 
 Include multiple sections if multiple new items are found.
-If the daily page already contains sections for the same date, append only the missing sections instead of replacing the page with only the newest item.
+If the daily page already contains sections for the same date, add only missing sections to the appropriate software groups instead of replacing the page with only the newest item.
+Keep the software-group order and the versions within each group the same in English and Russian daily pages.
 Keep the old section style used by existing news pages: the `### <Software> - <Version>` heading is the only title line for the item.
 Match the wording density and structure of recent existing pages in the same language instead of inventing a new layout.
 Do not add a repeated software/version summary line under the heading.
