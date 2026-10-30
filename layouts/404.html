@@ -1,0 +1,522 @@
+{{- define "main" }}
+{{- /* Header, menu and theme toggle come from baseof; game styles and script are scoped to .s404. */ -}}
+{{- $isRu := eq site.Language.Lang "ru" -}}
+{{- $homes := dict "en" "/" "ru" "/ru/" -}}
+{{- range site.Home.AllTranslations }}{{ $homes = merge $homes (dict .Language.Lang .RelPermalink) }}{{ end -}}
+<style>
+.s404 {
+  --s404-accent: #a35c00;
+  --s404-shadow: rgba(163, 92, 0, .18);
+  --s404-green: #1f7a12;
+  --s404-line: #c9cfc4;
+  --s404-dim: #8a8f86;
+  --s404-on: #ffffff;
+  display: grid;
+  gap: 32px;
+  padding: 8px 0 24px;
+  color: var(--content);
+  font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
+}
+:root[data-theme="dark"] .s404 {
+  --s404-accent: #ffbf3c;
+  --s404-shadow: #5a3f0a;
+  --s404-green: #7dff6a;
+  --s404-line: #3a4436;
+  --s404-dim: #7d8a72;
+  --s404-on: #0e110e;
+}
+.s404 *, .s404 *::before, .s404 *::after { box-sizing: border-box; }
+.s404-intro { text-align: center; }
+.s404 [hidden] { display: none !important; }
+.s404 :focus-visible { outline: 3px solid var(--s404-green); outline-offset: 3px; }
+.s404-code {
+  margin: 0;
+  font-size: clamp(64px, 14vw, 112px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--s404-accent);
+  text-shadow: 4px 4px 0 var(--s404-shadow);
+}
+.s404-title {
+  margin: 16px 0 8px;
+  font-size: clamp(20px, 3vw, 28px);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--s404-green);
+}
+.s404-msg { margin: 0 auto 24px; max-width: 48ch; line-height: 1.6; }
+.s404-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 2px solid var(--s404-accent);
+  color: var(--s404-accent);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.s404-home:hover { background: var(--s404-accent); color: var(--s404-on); }
+.s404-unavailable { margin: 16px 0 0; color: var(--s404-dim); }
+.s404-game { display: grid; gap: 12px; width: 100%; max-width: 440px; justify-self: center; }
+.s404-hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 20px;
+  font-size: 14px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.s404-hud b { color: var(--s404-accent); font-variant-numeric: tabular-nums; }
+.s404-status { color: var(--s404-green); text-align: right; }
+.s404-board {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 2px solid var(--s404-line);
+  background: #0a0d0a;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+.s404-board:focus-visible { outline-offset: 2px; }
+.s404-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.s404-btn {
+  flex: 1 1 0;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  border: 2px solid var(--s404-green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--s404-green);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.s404-btn:hover:not(:disabled) { background: var(--s404-green); color: var(--s404-on); }
+.s404-btn:disabled { border-color: var(--s404-line); color: var(--s404-dim); cursor: not-allowed; }
+.s404-dpad {
+  display: none;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 6px;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.s404-dpad .s404-btn { padding: 0; display: flex; align-items: center; justify-content: center; }
+.s404-dpad svg { width: 20px; height: 20px; fill: currentColor; }
+.s404-dpad .up { grid-column: 2; grid-row: 1; }
+.s404-dpad .left { grid-column: 1; grid-row: 2; }
+.s404-dpad .down { grid-column: 2; grid-row: 2; }
+.s404-dpad .right { grid-column: 3; grid-row: 2; }
+.s404-dpad .down svg { transform: rotate(180deg); }
+.s404-dpad .left svg { transform: rotate(-90deg); }
+.s404-dpad .right svg { transform: rotate(90deg); }
+@media (pointer: coarse), (max-width: 720px) {
+  .s404-dpad { display: grid; }
+}
+</style>
+<div class="s404" id="s404" data-home-en="{{ index $homes "en" }}" data-home-ru="{{ index $homes "ru" }}">
+  <section class="s404-intro">
+    <p class="s404-code" aria-hidden="true">404</p>
+    <h1 class="s404-title" data-t="heading">{{ if $isRu }}Страница не найдена{{ else }}Page not found{{ end }}</h1>
+    <p class="s404-msg" data-t="message">{{ if $isRu }}Похоже, этой страницы нет или она переехала. Раз уж вы здесь — покормите змейку.{{ else }}This page may have moved or never existed. While you're here, feed the snake.{{ end }}</p>
+    <a class="s404-home" id="s404-home" href="{{ index $homes site.Language.Lang }}" data-t="home">{{ if $isRu }}На главную{{ else }}Back to home{{ end }}</a>
+    <p class="s404-unavailable" id="s404-unavailable" data-t="unavailable" hidden></p>
+  </section>
+
+  <section class="s404-game" id="s404-game" hidden>
+    <div class="s404-hud">
+      <span><span data-t="score"></span> <b id="s404-score">0</b></span>
+      <span class="s404-status" id="s404-status" role="status" aria-live="polite"></span>
+    </div>
+    <canvas class="s404-board" id="s404-board" width="400" height="400" tabindex="0" data-t-label="board"></canvas>
+    <div class="s404-controls">
+      <button class="s404-btn" type="button" id="s404-start" data-t="start"></button>
+      <button class="s404-btn" type="button" id="s404-pause" disabled></button>
+      <button class="s404-btn" type="button" id="s404-restart" data-t="restart" disabled></button>
+    </div>
+    <div class="s404-dpad" id="s404-dpad">
+      <button class="s404-btn up" type="button" data-dir="up" data-t-label="up" disabled><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9.5 8.5H.5z"/></svg></button>
+      <button class="s404-btn left" type="button" data-dir="left" data-t-label="left" disabled><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9.5 8.5H.5z"/></svg></button>
+      <button class="s404-btn down" type="button" data-dir="down" data-t-label="down" disabled><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9.5 8.5H.5z"/></svg></button>
+      <button class="s404-btn right" type="button" data-dir="right" data-t-label="right" disabled><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9.5 8.5H.5z"/></svg></button>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  var TEXT = {
+    en: {
+      docTitle: '404 · Page not found',
+      heading: 'Page not found',
+      message: "This page may have moved or never existed. While you're here, feed the snake.",
+      home: 'Back to home',
+      unavailable: "The game can't run in this browser.",
+      score: 'Score',
+      board: 'Snake game board',
+      start: 'Start',
+      pause: 'Pause',
+      resume: 'Resume',
+      restart: 'Restart',
+      up: 'Up',
+      down: 'Down',
+      left: 'Left',
+      right: 'Right',
+      ready: 'Ready',
+      running: 'Playing',
+      paused: 'Paused',
+      over: 'Game over',
+      won: 'You win!'
+    },
+    ru: {
+      docTitle: '404 · Страница не найдена',
+      heading: 'Страница не найдена',
+      message: 'Похоже, этой страницы нет или она переехала. Раз уж вы здесь — покормите змейку.',
+      home: 'На главную',
+      unavailable: 'Игра недоступна в этом браузере.',
+      score: 'Счёт',
+      board: 'Игровое поле змейки',
+      start: 'Старт',
+      pause: 'Пауза',
+      resume: 'Продолжить',
+      restart: 'Заново',
+      up: 'Вверх',
+      down: 'Вниз',
+      left: 'Влево',
+      right: 'Вправо',
+      ready: 'Готово',
+      running: 'Игра идёт',
+      paused: 'Пауза',
+      over: 'Игра окончена',
+      won: 'Победа!'
+    }
+  };
+
+  var N = 20;
+  var STEP_MS = 125;
+  var MAX_FRAME_MS = 250;
+  var DIRS = {
+    up: { x: 0, y: -1 },
+    down: { x: 0, y: 1 },
+    left: { x: -1, y: 0 },
+    right: { x: 1, y: 0 }
+  };
+
+  function createGame(random, size, dirs) {
+    var g = {};
+
+    function spawn() {
+      var taken = {};
+      var free = [];
+      var i;
+      for (i = 0; i < g.snake.length; i++) taken[g.snake[i].y * size + g.snake[i].x] = true;
+      for (i = 0; i < size * size; i++) if (!taken[i]) free.push(i);
+      if (!free.length) return null;
+      var cell = free[Math.min(free.length - 1, Math.floor(random() * free.length))];
+      return { x: cell % size, y: Math.floor(cell / size) };
+    }
+
+    g.reset = function () {
+      var mid = Math.floor(size / 2);
+      g.snake = [{ x: mid, y: mid }, { x: mid - 1, y: mid }, { x: mid - 2, y: mid }, { x: mid - 3, y: mid }];
+      g.dir = dirs.right;
+      g.queue = [];
+      g.score = 0;
+      g.mode = 'ready';
+      g.apple = spawn();
+    };
+
+    g.turn = function (d) {
+      if (g.queue.length >= 2) return false;
+      var last = g.queue.length ? g.queue[g.queue.length - 1] : g.dir;
+      if ((d.x === last.x && d.y === last.y) || (d.x === -last.x && d.y === -last.y)) return false;
+      g.queue.push(d);
+      return true;
+    };
+
+    g.step = function () {
+      if (g.mode !== 'running') return;
+      if (g.queue.length) g.dir = g.queue.shift();
+      var head = g.snake[0];
+      var next = { x: head.x + g.dir.x, y: head.y + g.dir.y };
+      if (next.x < 0 || next.y < 0 || next.x >= size || next.y >= size) {
+        g.mode = 'over';
+        return;
+      }
+      var grow = !!g.apple && next.x === g.apple.x && next.y === g.apple.y;
+      // The tail cell is free on a non-growing step because the tail moves away.
+      var checked = grow ? g.snake.length : g.snake.length - 1;
+      for (var i = 0; i < checked; i++) {
+        if (g.snake[i].x === next.x && g.snake[i].y === next.y) {
+          g.mode = 'over';
+          return;
+        }
+      }
+      g.snake.unshift(next);
+      if (grow) {
+        g.score += 10;
+        g.apple = spawn();
+        if (!g.apple) g.mode = 'won';
+      } else {
+        g.snake.pop();
+      }
+    };
+
+    g.reset();
+    return g;
+  }
+
+  var path = window.location.pathname;
+  var lang = path === '/ru' || path.indexOf('/ru/') === 0 ? 'ru' : 'en';
+  var t = TEXT[lang];
+  var i;
+
+  var root = document.getElementById('s404');
+  // The root 404.html also serves missing /ru/ URLs, so the theme-rendered language can differ.
+  if (document.documentElement.lang.slice(0, 2) !== lang) document.title = t.docTitle;
+  root.setAttribute('lang', lang);
+  var textNodes = root.querySelectorAll('[data-t]');
+  for (i = 0; i < textNodes.length; i++) textNodes[i].textContent = t[textNodes[i].getAttribute('data-t')];
+  var labelNodes = root.querySelectorAll('[data-t-label]');
+  for (i = 0; i < labelNodes.length; i++) {
+    var label = t[labelNodes[i].getAttribute('data-t-label')];
+    labelNodes[i].setAttribute('aria-label', label);
+    labelNodes[i].setAttribute('title', label);
+  }
+  var homeHref = root.getAttribute('data-home-' + lang);
+  if (homeHref) document.getElementById('s404-home').setAttribute('href', homeHref);
+
+  var section = document.getElementById('s404-game');
+  var unavailable = document.getElementById('s404-unavailable');
+
+  try {
+    var board = document.getElementById('s404-board');
+    var ctx = board.getContext && board.getContext('2d');
+    if (!ctx) throw new Error('Canvas unavailable');
+
+    var scoreEl = document.getElementById('s404-score');
+    var statusEl = document.getElementById('s404-status');
+    var startBtn = document.getElementById('s404-start');
+    var pauseBtn = document.getElementById('s404-pause');
+    var restartBtn = document.getElementById('s404-restart');
+    var padBtns = document.querySelectorAll('#s404-dpad [data-dir]');
+
+    var SIZE = 400;
+    var CELL = SIZE / N;
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    board.width = Math.round(SIZE * dpr);
+    board.height = Math.round(SIZE * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+
+    var game = createGame(Math.random, N, DIRS);
+    var shownMode = null;
+    var raf = 0;
+    var lastTs = 0;
+    var acc = 0;
+    var pointerInGame = false;
+
+    var draw = function () {
+      ctx.fillStyle = '#0a0d0a';
+      ctx.fillRect(0, 0, SIZE, SIZE);
+      ctx.fillStyle = '#1b2318';
+      for (var gy = 1; gy < N; gy++) {
+        for (var gx = 1; gx < N; gx++) ctx.fillRect(gx * CELL - 1, gy * CELL - 1, 2, 2);
+      }
+
+      var a = game.apple;
+      if (a) {
+        var ax = a.x * CELL;
+        var ay = a.y * CELL;
+        ctx.fillStyle = '#ff5148';
+        ctx.fillRect(ax + 5, ay + 6, 10, 12);
+        ctx.fillRect(ax + 3, ay + 8, 14, 8);
+        ctx.fillStyle = '#ff9a8f';
+        ctx.fillRect(ax + 6, ay + 8, 2, 3);
+        ctx.fillStyle = '#9a6a35';
+        ctx.fillRect(ax + 9, ay + 2, 2, 5);
+        ctx.fillStyle = '#4fc43f';
+        ctx.fillRect(ax + 11, ay + 3, 4, 2);
+      }
+
+      for (var s = game.snake.length - 1; s >= 0; s--) {
+        var c = game.snake[s];
+        ctx.fillStyle = s === 0 ? '#7dff6a' : (s % 2 ? '#47b83a' : '#3fa834');
+        ctx.fillRect(c.x * CELL + 1, c.y * CELL + 1, CELL - 2, CELL - 2);
+      }
+
+      var h = game.snake[0];
+      var d = game.dir;
+      var cx = h.x * CELL + CELL / 2;
+      var cy = h.y * CELL + CELL / 2;
+      ctx.fillStyle = '#0a0d0a';
+      ctx.fillRect(cx + d.x * 4 - d.y * 4 - 1.5, cy + d.y * 4 - d.x * 4 - 1.5, 3, 3);
+      ctx.fillRect(cx + d.x * 4 + d.y * 4 - 1.5, cy + d.y * 4 + d.x * 4 - 1.5, 3, 3);
+
+      if (game.mode !== 'running') {
+        ctx.fillStyle = 'rgba(10, 13, 10, .62)';
+        ctx.fillRect(0, 0, SIZE, SIZE);
+        ctx.fillStyle = game.mode === 'over' ? '#ff5148' : '#ffbf3c';
+        ctx.font = 'bold 26px ui-monospace, Consolas, "Courier New", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(t[game.mode].toUpperCase(), SIZE / 2, SIZE / 2);
+      }
+    };
+
+    var sync = function () {
+      scoreEl.textContent = String(game.score);
+      if (shownMode === game.mode) return;
+      shownMode = game.mode;
+      var running = game.mode === 'running';
+      var paused = game.mode === 'paused';
+      statusEl.textContent = t[game.mode];
+      startBtn.disabled = game.mode !== 'ready';
+      pauseBtn.disabled = !(running || paused);
+      pauseBtn.textContent = paused ? t.resume : t.pause;
+      restartBtn.disabled = game.mode === 'ready';
+      for (var p = 0; p < padBtns.length; p++) padBtns[p].disabled = !running;
+    };
+
+    var frame = function (ts) {
+      raf = 0;
+      if (game.mode !== 'running') return;
+      if (!lastTs) lastTs = ts;
+      acc += Math.min(ts - lastTs, MAX_FRAME_MS);
+      lastTs = ts;
+      while (acc >= STEP_MS && game.mode === 'running') {
+        game.step();
+        acc -= STEP_MS;
+      }
+      draw();
+      sync();
+      if (game.mode === 'running') raf = window.requestAnimationFrame(frame);
+    };
+
+    var stopLoop = function () {
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = 0;
+      lastTs = 0;
+      acc = 0;
+    };
+
+    var play = function () {
+      if (game.mode !== 'ready' && game.mode !== 'paused') return;
+      stopLoop();
+      game.mode = 'running';
+      draw();
+      sync();
+      board.focus({ preventScroll: true });
+      raf = window.requestAnimationFrame(frame);
+    };
+
+    var pause = function () {
+      if (game.mode !== 'running') return;
+      stopLoop();
+      game.mode = 'paused';
+      draw();
+      sync();
+    };
+
+    var restart = function () {
+      stopLoop();
+      game.reset();
+      draw();
+      sync();
+    };
+
+    var togglePause = function () {
+      if (game.mode === 'running') pause();
+      else if (game.mode === 'paused') play();
+    };
+
+    var turn = function (name) {
+      if (game.mode === 'running') game.turn(DIRS[name]);
+    };
+
+    var KEYS = {
+      ArrowUp: 'up', KeyW: 'up',
+      ArrowDown: 'down', KeyS: 'down',
+      ArrowLeft: 'left', KeyA: 'left',
+      ArrowRight: 'right', KeyD: 'right'
+    };
+
+    board.addEventListener('keydown', function (e) {
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      var dir = KEYS[e.code];
+      if (dir) {
+        if (game.mode === 'running') {
+          e.preventDefault();
+          turn(dir);
+        }
+        return;
+      }
+      if (e.code === 'Space' && (game.mode === 'running' || game.mode === 'paused')) {
+        e.preventDefault();
+        togglePause();
+      }
+    });
+
+    startBtn.addEventListener('click', play);
+    pauseBtn.addEventListener('click', togglePause);
+    restartBtn.addEventListener('click', restart);
+
+    for (i = 0; i < padBtns.length; i++) {
+      (function (btn) {
+        var dir = btn.getAttribute('data-dir');
+        btn.addEventListener('pointerdown', function (e) {
+          if (e.button > 0) return;
+          e.preventDefault();
+          turn(dir);
+        });
+        // detail === 0 means keyboard activation; pointer input is handled on pointerdown.
+        btn.addEventListener('click', function (e) {
+          if (e.detail === 0) turn(dir);
+        });
+      })(padBtns[i]);
+    }
+
+    section.addEventListener('pointerdown', function () { pointerInGame = true; });
+    var releasePointer = function () { window.setTimeout(function () { pointerInGame = false; }, 0); };
+    window.addEventListener('pointerup', releasePointer);
+    window.addEventListener('pointercancel', releasePointer);
+    document.addEventListener('pointerdown', function (e) {
+      if (!section.contains(e.target)) pause();
+    });
+    section.addEventListener('focusout', function () {
+      window.setTimeout(function () {
+        if (!pointerInGame && !section.contains(document.activeElement)) pause();
+      }, 0);
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) pause();
+    });
+    window.addEventListener('blur', pause);
+    window.addEventListener('pagehide', function () {
+      pause();
+      stopLoop();
+    });
+
+    draw();
+    sync();
+    section.hidden = false;
+  } catch (err) {
+    section.hidden = true;
+    unavailable.hidden = false;
+  }
+})();
+</script>
+{{- end }}{{/* end main */ -}}
