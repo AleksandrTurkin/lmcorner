@@ -60,54 +60,78 @@
 }
 .s404-home:hover { background: var(--s404-accent); color: var(--s404-on); }
 .s404-unavailable { margin: 16px 0 0; color: var(--s404-dim); }
-.s404-game { display: grid; gap: 12px; width: 100%; max-width: 440px; justify-self: center; }
-.s404-hud {
+.s404-game { display: grid; gap: 18px; width: 100%; max-width: 460px; justify-self: center; }
+/* Turbo Pascal IDE palette (CGA): blue desktop, white double frame, gray status line, green buttons. */
+.s404-tp {
+  padding: 14px 10px 0;
+  background: #0000aa;
+  color: #ffffff;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, .6);
+}
+.s404-tp-frame {
+  position: relative;
+  padding: 10px;
+  border: 6px double #ffffff;
+}
+.s404-tp-name, .s404-tp-close {
+  position: absolute;
+  top: -12px;
+  padding: 0 6px;
+  background: #0000aa;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+.s404-tp-name { left: 50%; transform: translateX(-50%); color: #ffffff; }
+.s404-tp-close { left: 10px; color: #55ff55; }
+.s404-tp-status {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  min-height: 20px;
+  margin: 10px -10px 0;
+  padding: 3px 10px;
+  background: #aaaaaa;
+  color: #000000;
   font-size: 14px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
 }
-.s404-hud b { color: var(--s404-accent); font-variant-numeric: tabular-nums; }
-.s404-status { color: var(--s404-green); text-align: right; }
+.s404-tp-key { color: #aa0000; }
+.s404-tp-status b { font-weight: 700; font-variant-numeric: tabular-nums; }
 .s404-board {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
-  border: 2px solid var(--s404-line);
-  background: #0a0d0a;
+  background: #0000aa;
   image-rendering: pixelated;
   touch-action: none;
 }
-.s404-board:focus-visible { outline-offset: 2px; }
-.s404-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.s404 .s404-board:focus-visible { outline: 2px dashed #ffff55; outline-offset: 3px; }
+.s404-controls { display: flex; flex-wrap: wrap; gap: 14px; padding-right: 6px; }
 .s404-btn {
   flex: 1 1 0;
   min-width: 44px;
   min-height: 44px;
-  margin: 0;
+  margin: 0 0 6px;
   padding: 0 12px;
-  border: 2px solid var(--s404-green);
+  border: 0;
   border-radius: 0;
-  background: transparent;
-  color: var(--s404-green);
+  background: #00aa00;
+  color: #000000;
+  box-shadow: 6px 6px 0 #000000;
   font: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  font-size: 15px;
   cursor: pointer;
 }
-.s404-btn:hover:not(:disabled) { background: var(--s404-green); color: var(--s404-on); }
-.s404-btn:disabled { border-color: var(--s404-line); color: var(--s404-dim); cursor: not-allowed; }
+.s404-controls .s404-btn::first-letter { color: #ffff55; }
+.s404-btn:hover:not(:disabled) { background: #55ff55; }
+.s404-btn:active:not(:disabled) { transform: translate(6px, 6px); box-shadow: none; }
+.s404-btn:disabled { background: #aaaaaa; color: #555555; cursor: not-allowed; }
+.s404-controls .s404-btn:disabled::first-letter { color: #555555; }
 .s404-dpad {
   display: none;
   grid-template-columns: repeat(3, 56px);
   grid-template-rows: repeat(2, 56px);
-  gap: 6px;
+  gap: 10px;
   justify-content: center;
   touch-action: none;
   user-select: none;
@@ -136,11 +160,17 @@
   </section>
 
   <section class="s404-game" id="s404-game" hidden>
-    <div class="s404-hud">
-      <span><span data-t="score"></span> <b id="s404-score">0</b></span>
-      <span class="s404-status" id="s404-status" role="status" aria-live="polite"></span>
+    <div class="s404-tp">
+      <div class="s404-tp-frame">
+        <span class="s404-tp-close" aria-hidden="true">[&#9632;]</span>
+        <span class="s404-tp-name" aria-hidden="true">SNAKE.PAS</span>
+        <canvas class="s404-board" id="s404-board" width="400" height="400" tabindex="0" data-t-label="board"></canvas>
+      </div>
+      <div class="s404-tp-status">
+        <span><span class="s404-tp-key" data-t="score"></span> <b id="s404-score">0</b></span>
+        <span id="s404-status" role="status" aria-live="polite"></span>
+      </div>
     </div>
-    <canvas class="s404-board" id="s404-board" width="400" height="400" tabindex="0" data-t-label="board"></canvas>
     <div class="s404-controls">
       <button class="s404-btn" type="button" id="s404-start" data-t="start"></button>
       <button class="s404-btn" type="button" id="s404-pause" disabled></button>
@@ -330,9 +360,9 @@
     var pointerInGame = false;
 
     var draw = function () {
-      ctx.fillStyle = '#0a0d0a';
+      ctx.fillStyle = '#0000aa';
       ctx.fillRect(0, 0, SIZE, SIZE);
-      ctx.fillStyle = '#1b2318';
+      ctx.fillStyle = '#1c1cb8';
       for (var gy = 1; gy < N; gy++) {
         for (var gx = 1; gx < N; gx++) ctx.fillRect(gx * CELL - 1, gy * CELL - 1, 2, 2);
       }
@@ -341,20 +371,20 @@
       if (a) {
         var ax = a.x * CELL;
         var ay = a.y * CELL;
-        ctx.fillStyle = '#ff5148';
+        ctx.fillStyle = '#ff5555';
         ctx.fillRect(ax + 5, ay + 6, 10, 12);
         ctx.fillRect(ax + 3, ay + 8, 14, 8);
-        ctx.fillStyle = '#ff9a8f';
+        ctx.fillStyle = '#ffaaaa';
         ctx.fillRect(ax + 6, ay + 8, 2, 3);
-        ctx.fillStyle = '#9a6a35';
+        ctx.fillStyle = '#aa5500';
         ctx.fillRect(ax + 9, ay + 2, 2, 5);
-        ctx.fillStyle = '#4fc43f';
+        ctx.fillStyle = '#55ff55';
         ctx.fillRect(ax + 11, ay + 3, 4, 2);
       }
 
       for (var s = game.snake.length - 1; s >= 0; s--) {
         var c = game.snake[s];
-        ctx.fillStyle = s === 0 ? '#7dff6a' : (s % 2 ? '#47b83a' : '#3fa834');
+        ctx.fillStyle = s === 0 ? '#ffffff' : (s % 2 ? '#ffff55' : '#e6e64c');
         ctx.fillRect(c.x * CELL + 1, c.y * CELL + 1, CELL - 2, CELL - 2);
       }
 
@@ -362,18 +392,30 @@
       var d = game.dir;
       var cx = h.x * CELL + CELL / 2;
       var cy = h.y * CELL + CELL / 2;
-      ctx.fillStyle = '#0a0d0a';
+      ctx.fillStyle = '#0000aa';
       ctx.fillRect(cx + d.x * 4 - d.y * 4 - 1.5, cy + d.y * 4 - d.x * 4 - 1.5, 3, 3);
       ctx.fillRect(cx + d.x * 4 + d.y * 4 - 1.5, cy + d.y * 4 + d.x * 4 - 1.5, 3, 3);
 
       if (game.mode !== 'running') {
-        ctx.fillStyle = 'rgba(10, 13, 10, .62)';
-        ctx.fillRect(0, 0, SIZE, SIZE);
-        ctx.fillStyle = game.mode === 'over' ? '#ff5148' : '#ffbf3c';
-        ctx.font = 'bold 26px ui-monospace, Consolas, "Courier New", monospace';
+        // Turbo Pascal-style message box: gray dialog, white double frame, black shadow.
+        var bw = 280;
+        var bh = 76;
+        var bx = (SIZE - bw) / 2;
+        // Upper third keeps the snake's start row visible.
+        var by = 70;
+        ctx.fillStyle = 'rgba(0, 0, 0, .6)';
+        ctx.fillRect(bx + 10, by + 10, bw, bh);
+        ctx.fillStyle = '#aaaaaa';
+        ctx.fillRect(bx, by, bw, bh);
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(bx + 6, by + 6, bw - 12, bh - 12);
+        ctx.strokeRect(bx + 11, by + 11, bw - 22, bh - 22);
+        ctx.fillStyle = game.mode === 'over' ? '#aa0000' : '#000000';
+        ctx.font = 'bold 22px ui-monospace, Consolas, "Courier New", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(t[game.mode].toUpperCase(), SIZE / 2, SIZE / 2);
+        ctx.fillText(t[game.mode].toUpperCase(), SIZE / 2, by + bh / 2 + 1);
       }
     };
 
