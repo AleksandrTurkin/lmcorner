@@ -38,6 +38,7 @@ description: Collect AI-related software release news, avoid duplicates using Hu
 9. Keep all uncovered items between the latest covered version and the current latest source version for each software.
 10. Treat GitHub Copilot and GitHub Copilot CLI as distinct software products and compare each only with history recorded under its exact name. For the GitHub Copilot application source, use `GitHub Copilot App` exactly in generated headings. For the CLI source, use `GitHub Copilot CLI` exactly.
 11. For GitHub Copilot and Copilot CLI release feeds, include each missing stable release in the uncovered range when it contains relevant AI changes. Never include a prerelease, including numeric hyphenated Copilot CLI tags such as `1.0.69-3`.
+   - Compare each candidate's release-note body with the preceding stable release's body, ignoring release metadata such as standalone dates. If they are otherwise identical, keep the candidate's heading but replace the repeated features with one bullet stating that its release notes repeat the preceding version and list no additional changes. Verify both bodies before making this claim.
 12. Do not skip a source just because another source already has new items. Evaluate all sources first, then generate the full combined set of uncovered relevant items.
 13. If a source has a newer version than the latest covered version in news history and that newer version contains qualifying AI or agent changes, include it.
 14. If no new relevant items remain after checking all sources, stop and report that no news page update is needed.
@@ -89,7 +90,7 @@ Match the wording density and structure of recent existing pages in the same lan
 Do not add a repeated software/version summary line under the heading.
 Do not add bullets like `- **<Software> <Version>** - ...` or any other bold introductory bullet that restates the heading.
 Do not add label-style bullets such as `- Impact: ...`, `- Source: ...`, `- Why it matters: ...`, `- Влияние: ...`, or `- Источник: ...`.
-After each heading, write only plain feature bullets describing the new AI-related changes.
+After each heading, write only plain feature bullets describing the new AI-related changes, except for the verified repeated-release-notes case described in the workflow.
 Do not output HTML.
 
 ## Filtering rules
